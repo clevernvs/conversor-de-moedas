@@ -2,6 +2,7 @@ import customtkinter
 from get_currency import get_full_text, get_all_available_currency_code_converters
 from get_quotation import get_converter_by_currency_code
 
+
 # Definindo o tema de estilos da aplicação
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
@@ -9,10 +10,12 @@ customtkinter.set_default_color_theme("dark-blue")
 
 # Configurações da tela
 main_window = customtkinter.CTk()
-main_window.geometry("600x400")
+main_window.geometry("800x600")
+main_window.title("Conversor de Moedas")
+
 
 # Configurações os elementos
-header_label = customtkinter.CTkLabel(main_window, text="Conversor de moedas", font=("", 20))
+header_label = customtkinter.CTkLabel(main_window, text="Conversor de moedas", font=("", 24))
 
 label_origin_currency = customtkinter.CTkLabel(main_window, text="Selecione a moeda de origem")
 label_destiny_currency = customtkinter.CTkLabel(main_window, text="Selecione a moeda de destino")
@@ -27,7 +30,7 @@ def get_destiny_currency(currency_code):
 
 
 input_origin_currency = customtkinter.CTkOptionMenu(main_window, values=list(dic_available_converters.keys()), command=get_destiny_currency)
-input_destiny_currency = customtkinter.CTkOptionMenu(main_window, values="Selecione uma moeda de origem.")
+input_destiny_currency = customtkinter.CTkOptionMenu(main_window, values=["Selecione uma moeda de origem."])
 
 
 def currency_converter():
@@ -39,14 +42,13 @@ def currency_converter():
         label_currency_quotation.configure(text=f"1 {origin_currency_code} = {quotation} {destiny_currency_code}")
 
 
-button_convert_currency = customtkinter.CTkButton(main_window, text="Converter", command=currency_converter)
-
+button_convert_currency = customtkinter.CTkButton(main_window, width=200, height=40, text="Converter", command=currency_converter, font=("", 20))
 
 scroll_area_list_currencys = customtkinter.CTkScrollableFrame(main_window)
 
 all_currency_full_text = get_full_text()
 
-label_currency_quotation = customtkinter.CTkLabel(main_window, value="")
+label_currency_quotation = customtkinter.CTkLabel(main_window, text="")
 
 for currency_code in all_currency_full_text:
     currency_name = all_currency_full_text[currency_code]

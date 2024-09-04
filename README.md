@@ -10,3 +10,19 @@
 <p>
 Conversor de Moedas construido com CTk
 </p>
+
+<h1> Como utilizar o projeto: </h1>
+<p>
+Instalando as dependências
+
+```sh
+pip install -r requirements.txt
+```
+
+Ativar o ambiente de desenvolvimento
+
+```sh
+.venv\Scripts\activate 
+```
+
+</p>
