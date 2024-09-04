@@ -1,5 +1,6 @@
 import customtkinter
 from get_currency import get_full_text, get_all_available_currency_code_converters
+from get_quotation import get_converter_by_currency_code
 
 # Definindo o tema de estilos da aplicação
 customtkinter.set_appearance_mode("dark")
@@ -29,14 +30,24 @@ input_origin_currency = customtkinter.CTkOptionMenu(main_window, values=list(dic
 input_destiny_currency = customtkinter.CTkOptionMenu(main_window, values="Selecione uma moeda de origem.")
 
 
-def convert_currency():
-    print("Convertendo moeda...")
+def currency_converter():
+    origin_currency_code = input_origin_currency.get()
+    destiny_currency_code = input_destiny_currency.get()
 
-button_convert_currency = customtkinter.CTkButton(main_window, text="Converter", command=convert_currency)
+    if origin_currency_code and destiny_currency_code:
+        quotation = get_converter_by_currency_code(origin_currency_code, destiny_currency_code)
+        label_currency_quotation.configure(text=f"1 {origin_currency_code} = {quotation} {destiny_currency_code}")
+
+
+button_convert_currency = customtkinter.CTkButton(main_window, text="Converter", command=currency_converter)
 
 
 scroll_area_list_currencys = customtkinter.CTkScrollableFrame(main_window)
+
 all_currency_full_text = get_full_text()
+
+label_currency_quotation = customtkinter.CTkLabel(main_window, value="")
+
 for currency_code in all_currency_full_text:
     currency_name = all_currency_full_text[currency_code]
     textcurrency = customtkinter.CTkLabel(scroll_area_list_currencys, text=f"{currency_code}: {currency_name}" )
@@ -53,6 +64,8 @@ label_destiny_currency.pack(padx=10, pady=3)
 input_destiny_currency.pack(padx=10, pady=10)
 
 button_convert_currency.pack(padx=10, pady=10)
+
+label_currency_quotation.pack(padx=10, pady=10)
 
 scroll_area_list_currencys.pack(padx=10, pady=10)
 
